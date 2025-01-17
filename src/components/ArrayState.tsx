@@ -1,18 +1,8 @@
 "use client";
-import { useCallback, useState } from "react";
+import useArrayList from "@/hooks/useArrayList";
 
 export default function ArrayState() {
-  // useStateの型定義↓
-  // function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
-  const [Array, setArray] = useState<number[]>([]);
-
-  const addArray = useCallback(() => {
-    console.log("Actived addArray()");
-    setArray((prevArray) => {
-      return [...prevArray, prevArray.length + 1];
-      // return [...prevArray, 1];
-    });
-  }, []);
+  const { Array, addArray } = useArrayList();
 
   return (
     <div>
@@ -30,4 +20,8 @@ export default function ArrayState() {
 /*メモ
   useStateの型定義↓
   function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
+
+  状態管理
+  状態(state)を更新するときに、破壊的メソッドではなくスプレッド演算子を使用して参照を変更する必要がある。
+  これによって、Reactの再レンダリングがトリガーされる。
 */
